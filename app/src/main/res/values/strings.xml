@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">小六壬</string>
+
+    <string name="disc_wuxing_name">五星</string>
+    <string name="disc_liushen_name">六神</string>
+    <string name="disc_dizhi_name">地支</string>
+    <string name="disc_liuqin_name">六亲</string>
+    <string name="disc_lougong_name">落宫</string>
+    <string name="disc_gongwei_name">宫位</string>
+
+    <string name="nav_home_name">首页</string>
+    <string name="nav_setting_name">设置</string>
+
+    <string name="tab_date_name">日期</string>
+    <string name="tab_num_name">数字</string>
+    <string name="tab_time_name">时间</string>
+    <string name="tab_error_name">异常</string>
+
+    <string name="tv_time_title">时间</string>
+    <string name="tv_time_desc">00时01分</string>
+    <string name="tv_time_nl_title">时间</string>
+    <string name="tv_time_nl_desc">子时午刻</string>
+    <string name="tv_date_title">日期</string>
+    <string name="tv_date_desc">2023年01月01日</string>
+    <string name="tv_num_title">数字</string>
+    <string name="tv_num_error">请输入数字</string>
+
+    <string name="btn_start_name">开始排盘</string>
+
+    <string name="tv_about">本排盘仅供学习和交流之用\n严禁用于商业及非法用途</string>
+
+</resources>
