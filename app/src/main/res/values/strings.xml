@@ -1,5 +1,8 @@
 <resources>
+
+
     <string name="app_name">小六壬</string>
+
 
     <string name="disc_wuxing_name">五星</string>
     <string name="disc_liushen_name">六神</string>
@@ -7,6 +10,7 @@
     <string name="disc_liuqin_name">六亲</string>
     <string name="disc_lougong_name">落宫</string>
     <string name="disc_gongwei_name">宫位</string>
+
 
     <string name="nav_home_name">首页</string>
     <string name="nav_setting_name">设置</string>
@@ -16,17 +20,28 @@
     <string name="tab_time_name">时间</string>
     <string name="tab_error_name">异常</string>
 
-    <string name="tv_time_title">时间</string>
-    <string name="tv_time_desc">00时01分</string>
-    <string name="tv_time_nl_title">时间</string>
-    <string name="tv_time_nl_desc">子时午刻</string>
-    <string name="tv_date_title">日期</string>
-    <string name="tv_date_desc">2023年01月01日</string>
-    <string name="tv_num_title">数字</string>
-    <string name="tv_num_error">请输入数字</string>
 
-    <string name="btn_start_name">开始排盘</string>
+    <string name="home_time_title">时间(选择)</string>
+    <string name="home_time_desc">00时01分</string>
+    <string name="home_time_nl_title">时间(显示)</string>
+    <string name="home_time_nl_desc">子时午刻</string>
 
-    <string name="tv_about">本排盘仅供学习和交流之用\n严禁用于商业及非法用途</string>
+    <string name="home_date_title">日期(选择)</string>
+    <string name="home_date_desc">2023年01月01日</string>
+    <string name="home_date_nl_title">日期(显示)</string>
+    <string name="home_date_nl_desc">癸卯虎年腊月初十</string>
+
+    <string name="home_num_title">数字(输入)</string>
+    <string name="home_num_error">请输入数字</string>
+    <string name="home_num_rand">随机骰子</string>
+
+    <string name="home_btn_start">开始排盘</string>
+
+
+    <string name="setting_color">开启彩盘</string>
+    <string name="setting_developer">开发作者：%1$s</string>
+    <string name="setting_about">关于软件：%1$s (%2$s)</string>
+    <string name="setting_about_desc">本排盘仅供学习和交流之用, 严禁用于商业及非法用途</string>
+
 
 </resources>

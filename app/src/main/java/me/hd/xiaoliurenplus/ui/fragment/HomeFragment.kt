@@ -2,6 +2,7 @@ package me.hd.xiaoliurenplus.ui.fragment
 
 import android.annotation.SuppressLint
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -9,6 +10,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
+import me.hd.xiaoliurenplus.BuildConfig
 import me.hd.xiaoliurenplus.R
 import me.hd.xiaoliurenplus.databinding.FragmentHomeBinding
 import me.hd.xiaoliurenplus.obj.bean.*
@@ -26,18 +28,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, ViewModel>(
     null
 ) {
     private var type = 0
-    private var day = 1
-    private var hour = 0
-    private var minute = 1
-    private var year = 2023
-    private var month = 1
 
     @SuppressLint("SetTextI18n")
     override fun initFragment(
         binding: FragmentHomeBinding,
         viewModel: ViewModel?
     ) {
-        binding.homeToolbar.title = resources.getString(R.string.nav_home_name)
+        binding.homeToolbar.title = getString(R.string.nav_home_name)
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.tab_date_name))
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.tab_num_name))
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.tab_time_name))
@@ -78,7 +75,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, ViewModel>(
 
     @SuppressLint("SetTextI18n")
     private fun initLayoutDate(binding: FragmentHomeBinding) {
-        binding.includedLayoutDate.tvDescTime.setOnClickListener {
+        var hour = 0
+        var year = 2023
+        var month = 1
+        var day = 1
+        binding.includedLayoutDate.llTimeSelect.setOnClickListener {
             val calendar: Calendar = Calendar.getInstance()
             val picker = MaterialTimePicker.Builder()
                 .setTimeFormat(TimeFormat.CLOCK_24H)
@@ -90,11 +91,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, ViewModel>(
             picker.addOnNegativeButtonClickListener {}
             picker.addOnPositiveButtonClickListener {
                 hour = picker.hour
-                minute = picker.minute
-                binding.includedLayoutDate.tvDescTime.text = "${hour}时${minute}分"
+                val minute = picker.minute
+                binding.includedLayoutDate.tvTimeDesc.text = "${hour}时${minute}分"
+                val 时地支 = 地支Util.取时地支(hour)
+                val 刻地支 = 地支Util.取刻地支(hour, minute)
+                binding.includedLayoutDate.tvTimeDescNl.text = "${时地支}时${刻地支}刻"
             }
         }
-        binding.includedLayoutDate.tvDescDate.setOnClickListener {
+        binding.includedLayoutDate.llDateSelect.setOnClickListener {
             val picker = MaterialDatePicker.Builder.datePicker()
                 .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                 .build()
@@ -107,19 +111,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, ViewModel>(
                     .format(Date(it)).toInt()
                 day = SimpleDateFormat("dd", Locale.getDefault())
                     .format(Date(it)).toInt()
-                binding.includedLayoutDate.tvDescDate.text = picker.headerText
+                binding.includedLayoutDate.tvDateDesc.text = picker.headerText
+                val calendarInfo = 农历Util.公历转农历(year, month, day)!!
+                binding.includedLayoutDate.tvDateDescNl.text =
+                    "${calendarInfo.gzYear}${calendarInfo.Animal}年${calendarInfo.IMonthCn}${calendarInfo.IDayCn}"
             }
         }
         binding.includedLayoutDate.btnStart.setOnClickListener {
-            val calendarInfo = 农历Util.solar2lunar(year, month, day)!!
-            println(calendarInfo.toString())
+            val calendarInfo = 农历Util.公历转农历(year, month, day)!!
             排盘(binding, calendarInfo.lDay, 地支Util.取时地支(hour))
         }
     }
 
     @SuppressLint("SetTextI18n")
     private fun initLayoutNum(binding: FragmentHomeBinding) {
-        binding.includedLayoutNum.tvDescTime.setOnClickListener {
+        var hour = 0
+        binding.includedLayoutNum.llTimeSelect.setOnClickListener {
             val calendar: Calendar = Calendar.getInstance()
             val picker = MaterialTimePicker.Builder()
                 .setTimeFormat(TimeFormat.CLOCK_24H)
@@ -131,17 +138,26 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, ViewModel>(
             picker.addOnNegativeButtonClickListener {}
             picker.addOnPositiveButtonClickListener {
                 hour = picker.hour
-                minute = picker.minute
-                binding.includedLayoutNum.tvDescTime.text = "${hour}时${minute}分"
+                val minute = picker.minute
+                binding.includedLayoutNum.tvTimeDesc.text = "${hour}时${minute}分"
+                val 时地支 = 地支Util.取时地支(hour)
+                val 刻地支 = 地支Util.取刻地支(hour, minute)
+                binding.includedLayoutDate.tvTimeDescNl.text = "${时地支}时${刻地支}刻"
             }
+        }
+        binding.includedLayoutNum.btnRand.setOnClickListener {
+            val day = (1..6).random()
+            binding.includedLayoutNum.edtNum.setText(day.toString())
+            val time = System.currentTimeMillis()
+            binding.includedLayoutNum.edtLl.hint = "${time}掷出${day}"
         }
         binding.includedLayoutNum.btnStart.setOnClickListener {
             val dayStr = binding.includedLayoutNum.edtNum.text.toString()
             if (dayStr.isEmpty()) {
-                binding.includedLayoutNum.edtLl.error = resources.getString(R.string.tv_num_error)
+                binding.includedLayoutNum.edtLl.error = getString(R.string.home_num_error)
             } else {
                 binding.includedLayoutNum.edtLl.error = null
-                day = dayStr.toInt()
+                val day = dayStr.toInt()
                 排盘(binding, day, 地支Util.取时地支(hour))
             }
         }
@@ -149,7 +165,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, ViewModel>(
 
     @SuppressLint("SetTextI18n")
     private fun initLayoutTime(binding: FragmentHomeBinding) {
-        binding.includedLayoutTime.tvDescTime.setOnClickListener {
+        var hour = 0
+        var minute = 1
+        binding.includedLayoutTime.llTimeSelect.setOnClickListener {
             val calendar: Calendar = Calendar.getInstance()
             val picker = MaterialTimePicker.Builder()
                 .setTimeFormat(TimeFormat.CLOCK_24H)
@@ -162,15 +180,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, ViewModel>(
             picker.addOnPositiveButtonClickListener {
                 hour = picker.hour
                 minute = picker.minute
-                binding.includedLayoutTime.tvDescTime.text = "${hour}时${minute}分"
+                binding.includedLayoutTime.tvTimeDesc.text = "${hour}时${minute}分"
+                val 时地支 = 地支Util.取时地支(hour)
+                val 刻地支 = 地支Util.取刻地支(hour, minute)
+                binding.includedLayoutTime.tvTimeDescNl.text = "${时地支}时${刻地支}刻"
             }
         }
         binding.includedLayoutTime.btnStart.setOnClickListener {
-            val 时地支 = 地支Util.取时地支(hour)
-            val day = 地支Util.取时地支位置(时地支)
-            val 刻地支 = 地支Util.取刻地支(hour, minute)
-            binding.includedLayoutTime.tvDescTimeNl.text = "${时地支}时${刻地支}刻"
-            排盘(binding, day, 刻地支)
+            val day = 地支Util.取时地支位置(地支Util.取时地支(hour))
+            排盘(binding, day, 地支Util.取刻地支(hour, minute))
         }
     }
 

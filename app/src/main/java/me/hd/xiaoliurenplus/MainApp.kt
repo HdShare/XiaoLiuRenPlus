@@ -16,7 +16,8 @@ class MainApp : Application() {
         context = this
     }
 
-    private fun helloWorld() {
+    fun helloWorld() {
         println("Hello World!")
     }
+
 }
