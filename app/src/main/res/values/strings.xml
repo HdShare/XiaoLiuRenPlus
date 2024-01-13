@@ -29,7 +29,7 @@
     <string name="home_date_title">日期(选择)</string>
     <string name="home_date_desc">2023年01月01日</string>
     <string name="home_date_nl_title">日期(显示)</string>
-    <string name="home_date_nl_desc">癸卯虎年腊月初十</string>
+    <string name="home_date_nl_desc">壬寅虎年腊月初十</string>
 
     <string name="home_num_title">数字(输入)</string>
     <string name="home_num_error">请输入数字</string>
