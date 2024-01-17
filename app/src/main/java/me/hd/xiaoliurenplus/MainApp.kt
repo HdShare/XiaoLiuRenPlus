@@ -5,7 +5,6 @@ import android.database.sqlite.SQLiteDatabase
 import com.google.gson.Gson
 import me.hd.xiaoliurenplus.sql.dao.impl.LogsDaoImpl
 import me.hd.xiaoliurenplus.sql.db.LogsDb
-import me.hd.xiaoliurenplus.utils.CrashHandler
 
 class MainApp : Application() {
     companion object {
@@ -18,7 +17,6 @@ class MainApp : Application() {
     override fun onCreate() {
         super.onCreate()
         context = this
-        CrashHandler.getInstance(this)
         gson = Gson()
         database = LogsDb(this).writableDatabase
         logsDao = LogsDaoImpl()

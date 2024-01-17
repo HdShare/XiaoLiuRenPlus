@@ -2,7 +2,6 @@ package me.hd.xiaoliurenplus.ui.fragment
 
 import android.annotation.SuppressLint
 import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -10,7 +9,6 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
-import me.hd.xiaoliurenplus.BuildConfig
 import me.hd.xiaoliurenplus.MainApp
 import me.hd.xiaoliurenplus.R
 import me.hd.xiaoliurenplus.databinding.FragmentHomeBinding
@@ -20,7 +18,6 @@ import me.hd.xiaoliurenplus.obj.util.*
 import me.hd.xiaoliurenplus.sql.entity.Logs
 import me.hd.xiaoliurenplus.ui.fragment.base.BaseFragment
 import me.hd.xiaoliurenplus.ui.view.DiscView
-import me.hd.xiaoliurenplus.utils.DateUtil
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
