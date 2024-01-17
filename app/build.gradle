@@ -11,8 +11,8 @@ android {
         applicationId "me.hd.xiaoliurenplus"
         minSdk 24
         targetSdk 33
-        versionCode 20240113
-        versionName "1.2.5"
+        versionCode 20240117
+        versionName "1.2.95"
 
         buildConfigField("String", "Developer", "\"HdShare\"")
 
@@ -58,6 +58,9 @@ android {
 }
 
 dependencies {
+
+    implementation 'com.google.code.gson:gson:2.10'
+
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'

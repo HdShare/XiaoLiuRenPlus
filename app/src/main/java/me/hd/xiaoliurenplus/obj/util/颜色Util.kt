@@ -1,7 +1,6 @@
 package me.hd.xiaoliurenplus.obj.util
 
 object 颜色Util {
-
     fun 取宫位颜色(宫位: String): Int {
         return when (宫位) {
             "空亡" -> 0xFF8B4513
@@ -63,5 +62,4 @@ object 颜色Util {
             else -> 0xFF000000
         }.toInt()
     }
-
 }

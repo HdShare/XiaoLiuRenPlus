@@ -1,23 +1,26 @@
 package me.hd.xiaoliurenplus
 
 import android.app.Application
-import android.content.Context
+import android.database.sqlite.SQLiteDatabase
+import com.google.gson.Gson
+import me.hd.xiaoliurenplus.sql.dao.impl.LogsDaoImpl
+import me.hd.xiaoliurenplus.sql.db.LogsDb
+import me.hd.xiaoliurenplus.utils.CrashHandler
 
 class MainApp : Application() {
     companion object {
-        var context: Application? = null
-        fun getContext(): Context {
-            return context!!
-        }
+        lateinit var context: Application
+        lateinit var gson: Gson
+        lateinit var database: SQLiteDatabase
+        lateinit var logsDao: LogsDaoImpl
     }
 
     override fun onCreate() {
         super.onCreate()
         context = this
+        CrashHandler.getInstance(this)
+        gson = Gson()
+        database = LogsDb(this).writableDatabase
+        logsDao = LogsDaoImpl()
     }
-
-    fun helloWorld() {
-        println("Hello World!")
-    }
-
 }

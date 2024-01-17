@@ -11,13 +11,16 @@ import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import me.hd.xiaoliurenplus.BuildConfig
+import me.hd.xiaoliurenplus.MainApp
 import me.hd.xiaoliurenplus.R
 import me.hd.xiaoliurenplus.databinding.FragmentHomeBinding
 import me.hd.xiaoliurenplus.obj.bean.*
 import me.hd.xiaoliurenplus.obj.desc.*
 import me.hd.xiaoliurenplus.obj.util.*
+import me.hd.xiaoliurenplus.sql.entity.Logs
 import me.hd.xiaoliurenplus.ui.fragment.base.BaseFragment
 import me.hd.xiaoliurenplus.ui.view.DiscView
+import me.hd.xiaoliurenplus.utils.DateUtil
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -92,10 +95,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, ViewModel>(
             picker.addOnPositiveButtonClickListener {
                 hour = picker.hour
                 val minute = picker.minute
-                binding.includedLayoutDate.tvTimeDesc.text = "${hour}时${minute}分"
                 val 时地支 = 地支Util.取时地支(hour)
                 val 刻地支 = 地支Util.取刻地支(hour, minute)
-                binding.includedLayoutDate.tvTimeDescNl.text = "${时地支}时${刻地支}刻"
+                binding.includedLayoutDate.tvTimeDesc.text =
+                    "${时地支}时${刻地支}刻 ${hour}时${minute}分"
             }
         }
         binding.includedLayoutDate.llDateSelect.setOnClickListener {
@@ -111,15 +114,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, ViewModel>(
                     .format(Date(it)).toInt()
                 day = SimpleDateFormat("dd", Locale.getDefault())
                     .format(Date(it)).toInt()
-                binding.includedLayoutDate.tvDateDesc.text = picker.headerText
                 val calendarInfo = 农历Util.公历转农历(year, month, day)!!
-                binding.includedLayoutDate.tvDateDescNl.text =
-                    "${calendarInfo.gzYear}${calendarInfo.Animal}年${calendarInfo.IMonthCn}${calendarInfo.IDayCn}"
+                binding.includedLayoutDate.tvDateDesc.text =
+                    "${calendarInfo.gzYear}${calendarInfo.Animal}年${calendarInfo.IMonthCn}${calendarInfo.IDayCn} ${picker.headerText}"
             }
         }
         binding.includedLayoutDate.btnStart.setOnClickListener {
             val calendarInfo = 农历Util.公历转农历(year, month, day)!!
-            排盘(binding, calendarInfo.lDay, 地支Util.取时地支(hour))
+            val 何事 = binding.includedLayoutDate.edtMatter.text.toString()
+            排盘(binding, calendarInfo.lDay, 地支Util.取时地支(hour), 何事)
         }
     }
 
@@ -139,26 +142,27 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, ViewModel>(
             picker.addOnPositiveButtonClickListener {
                 hour = picker.hour
                 val minute = picker.minute
-                binding.includedLayoutNum.tvTimeDesc.text = "${hour}时${minute}分"
                 val 时地支 = 地支Util.取时地支(hour)
                 val 刻地支 = 地支Util.取刻地支(hour, minute)
-                binding.includedLayoutDate.tvTimeDescNl.text = "${时地支}时${刻地支}刻"
+                binding.includedLayoutNum.tvTimeDesc.text =
+                    "${时地支}时${刻地支}刻 ${hour}时${minute}分"
             }
         }
         binding.includedLayoutNum.btnRand.setOnClickListener {
             val day = (1..6).random()
             binding.includedLayoutNum.edtNum.setText(day.toString())
             val time = System.currentTimeMillis()
-            binding.includedLayoutNum.edtLl.hint = "${time}掷出${day}"
+            binding.includedLayoutNum.edtNumLl.hint = "${time}掷出${day}"
         }
         binding.includedLayoutNum.btnStart.setOnClickListener {
             val dayStr = binding.includedLayoutNum.edtNum.text.toString()
             if (dayStr.isEmpty()) {
-                binding.includedLayoutNum.edtLl.error = getString(R.string.home_num_error)
+                binding.includedLayoutNum.edtNumLl.error = getString(R.string.home_num_error)
             } else {
-                binding.includedLayoutNum.edtLl.error = null
+                binding.includedLayoutNum.edtNumLl.error = null
                 val day = dayStr.toInt()
-                排盘(binding, day, 地支Util.取时地支(hour))
+                val 何事 = binding.includedLayoutNum.edtMatter.text.toString()
+                排盘(binding, day, 地支Util.取时地支(hour), 何事)
             }
         }
     }
@@ -180,23 +184,33 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, ViewModel>(
             picker.addOnPositiveButtonClickListener {
                 hour = picker.hour
                 minute = picker.minute
-                binding.includedLayoutTime.tvTimeDesc.text = "${hour}时${minute}分"
                 val 时地支 = 地支Util.取时地支(hour)
                 val 刻地支 = 地支Util.取刻地支(hour, minute)
-                binding.includedLayoutTime.tvTimeDescNl.text = "${时地支}时${刻地支}刻"
+                binding.includedLayoutTime.tvTimeDesc.text =
+                    "${时地支}时${刻地支}刻 ${hour}时${minute}分"
             }
         }
         binding.includedLayoutTime.btnStart.setOnClickListener {
             val day = 地支Util.取时地支位置(地支Util.取时地支(hour))
-            排盘(binding, day, 地支Util.取刻地支(hour, minute))
+            val 何事 = binding.includedLayoutTime.edtMatter.text.toString()
+            排盘(binding, day, 地支Util.取刻地支(hour, minute), 何事)
         }
     }
 
     @SuppressLint("DiscouragedApi")
-    private fun 排盘(binding: FragmentHomeBinding, 农历day: Int, 时地支: String) {
+    private fun 排盘(binding: FragmentHomeBinding, 农历day: Int, 时地支: String, 何事: String) {
         val 日落宫 = 六宫Util.取日落宫(农历day)
         val 时落宫 = 六宫Util.取时落宫(农历day, 地支Util.取时地支位置(时地支))
         val 盘列表 = 排盘Util.取盘列表(日落宫, 时地支, 时落宫)
+        MainApp.logsDao.insert(
+            Logs(
+                类型 = type,
+                何事 = 何事,
+                排盘 = MainApp.gson.toJson(盘列表),
+                日落宫 = 日落宫,
+                时落宫 = 时落宫
+            )
+        )
         置盘(binding.discView0, 盘列表[0], 日落宫, 时落宫)
         置盘(binding.discView1, 盘列表[1], 日落宫, 时落宫)
         置盘(binding.discView2, 盘列表[2], 日落宫, 时落宫)
@@ -211,8 +225,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, ViewModel>(
         discview.binding.discGongwei.setTextColor(颜色Util.取宫位颜色(排盘.宫位))
         discview.binding.discDizhi.text = 排盘.地支 + "\n" + 排盘.五行
         discview.binding.discDizhi.setTextColor(颜色Util.取五行颜色(排盘.五行))
-        println("日落宫: $日落宫 时落宫: $时落宫")
-        println(discview.binding.discLuogong.text)
         discview.binding.discLuogong.text = when (type) {
             0 -> if (排盘.宫位 == 日落宫 && 排盘.宫位 == 时落宫) "日时" else if (排盘.宫位 == 日落宫) "日" else if (排盘.宫位 == 时落宫) "时" else ""
             1 -> if (排盘.宫位 == 日落宫 && 排盘.宫位 == 时落宫) "数时" else if (排盘.宫位 == 日落宫) "数" else if (排盘.宫位 == 时落宫) "时" else ""

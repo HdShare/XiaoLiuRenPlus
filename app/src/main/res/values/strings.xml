@@ -1,8 +1,6 @@
 <resources>
 
-
     <string name="app_name">小六壬</string>
-
 
     <string name="disc_wuxing_name">五星</string>
     <string name="disc_liushen_name">六神</string>
@@ -10,7 +8,6 @@
     <string name="disc_liuqin_name">六亲</string>
     <string name="disc_lougong_name">落宫</string>
     <string name="disc_gongwei_name">宫位</string>
-
 
     <string name="nav_home_name">首页</string>
     <string name="nav_setting_name">设置</string>
@@ -20,28 +17,34 @@
     <string name="tab_time_name">时间</string>
     <string name="tab_error_name">异常</string>
 
+    <string name="home_matter_name">何事</string>
 
-    <string name="home_time_title">时间(选择)</string>
-    <string name="home_time_desc">00时01分</string>
-    <string name="home_time_nl_title">时间(显示)</string>
-    <string name="home_time_nl_desc">子时午刻</string>
+    <string name="home_time_title">时间</string>
+    <string name="home_time_desc">子时午刻 0时1分</string>
 
-    <string name="home_date_title">日期(选择)</string>
-    <string name="home_date_desc">2023年01月01日</string>
-    <string name="home_date_nl_title">日期(显示)</string>
-    <string name="home_date_nl_desc">壬寅虎年腊月初十</string>
+    <string name="home_date_title">日期</string>
+    <string name="home_date_desc">壬寅虎年腊月初十 2023年1月1日</string>
 
-    <string name="home_num_title">数字(输入)</string>
+    <string name="home_num_title">数字</string>
     <string name="home_num_error">请输入数字</string>
     <string name="home_num_rand">随机骰子</string>
 
     <string name="home_btn_start">开始排盘</string>
 
-
-    <string name="setting_color">开启彩盘</string>
     <string name="setting_developer">开发作者：%1$s</string>
-    <string name="setting_about">关于软件：%1$s (%2$s)</string>
-    <string name="setting_about_desc">本排盘仅供学习和交流之用, 严禁用于商业及非法用途</string>
+    <string name="setting_version">软件版本：%1$s (%2$s)</string>
+    <string name="setting_logs">排盘记录</string>
 
+    <string name="toolbar_clear_name">清空</string>
+
+    <string name="logs_detail">排盘详情</string>
+    <string name="logs_time">何时</string>
+    <string name="logs_type">何类</string>
+    <string name="logs_title">何事</string>
+    <string name="logs_none">待定</string>
+    <string name="logs_true">正确</string>
+    <string name="logs_false">错误</string>
+    <string name="logs_about">断语</string>
+    <string name="logs_feedback">反馈</string>
 
 </resources>
