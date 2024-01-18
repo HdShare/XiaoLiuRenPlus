@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import me.hd.xiaoliurenplus.MainApp
 import me.hd.xiaoliurenplus.R
 import me.hd.xiaoliurenplus.databinding.ActivityLogsBinding
@@ -42,10 +43,17 @@ class LogsActivity : AppCompatActivity() {
         binding.logsToolbar.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.toolbar_clear -> {
-                    logsList.clear()
-                    MainApp.logsDao.deleteAll()
-                    adapter.notifyDataSetChanged()
-                    Toast.makeText(this, "清空成功", Toast.LENGTH_SHORT).show()
+                    MaterialAlertDialogBuilder(this)
+                        .setTitle("提示")
+                        .setMessage("是否确定清空所有数据")
+                        .setPositiveButton("确定") { _, _ ->
+                            logsList.clear()
+                            MainApp.logsDao.deleteAll()
+                            adapter.notifyDataSetChanged()
+                            Toast.makeText(this, "清空成功", Toast.LENGTH_SHORT).show()
+                        }
+                        .setNegativeButton("取消") { _, _ -> }
+                        .show()
                 }
             }
             false

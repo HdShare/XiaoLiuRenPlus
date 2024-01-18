@@ -11,7 +11,7 @@ interface LogsDao {
 
     fun update(logs: Logs): Int
 
-    fun delete(id: Long): Int
+    fun delete(id: Int): Int
 
     fun deleteAll(): Int
 }

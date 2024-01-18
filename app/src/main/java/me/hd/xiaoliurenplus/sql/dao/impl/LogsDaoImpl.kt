@@ -81,7 +81,7 @@ class LogsDaoImpl : LogsDao {
         return database.update("logs", values, "id=?", arrayOf(logs.id.toString()))
     }
 
-    override fun delete(id: Long): Int {
+    override fun delete(id: Int): Int {
         return database.delete("logs", "id=?", arrayOf(id.toString()))
     }
 

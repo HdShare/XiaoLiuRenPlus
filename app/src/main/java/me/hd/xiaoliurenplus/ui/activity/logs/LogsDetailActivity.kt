@@ -38,6 +38,19 @@ class LogsDetailActivity : AppCompatActivity() {
         binding.logsDetailToolbar.setNavigationOnClickListener { finish() }
         binding.logsDetailToolbar.setOnMenuItemClickListener { item ->
             when (item.itemId) {
+                R.id.toolbar_delete -> {
+                    MaterialAlertDialogBuilder(this)
+                        .setTitle("提示")
+                        .setMessage("是否确定删除这条数据")
+                        .setPositiveButton("确定") { _, _ ->
+                            MainApp.logsDao.delete(logs.id)
+                            Toast.makeText(this, "删除成功", Toast.LENGTH_SHORT).show()
+                            finish()
+                        }
+                        .setNegativeButton("取消") { _, _ -> }
+                        .show()
+                }
+
                 R.id.toolbar_save -> {
                     logs.何事 = binding.logsDetailEdtTitle.text.toString()
                     binding.logsDetailRgResult.checkedRadioButtonId.let {

@@ -36,6 +36,8 @@
     <string name="setting_logs">排盘记录</string>
 
     <string name="toolbar_clear_name">清空</string>
+    <string name="toolbar_delete_name">删除</string>
+    <string name="toolbar_save_name">保存</string>
 
     <string name="logs_detail">排盘详情</string>
     <string name="logs_time">何时</string>
