@@ -39,6 +39,7 @@ class LogsDetailActivity : AppCompatActivity() {
         binding.logsDetailToolbar.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.toolbar_save -> {
+                    logs.何事 = binding.logsDetailEdtTitle.text.toString()
                     binding.logsDetailRgResult.checkedRadioButtonId.let {
                         when (it) {
                             R.id.logsDetailRbTrue -> {
@@ -63,7 +64,7 @@ class LogsDetailActivity : AppCompatActivity() {
     }
 
     private fun initData() {
-        binding.logsDetailTitle.text = logs.何事
+        binding.logsDetailEdtTitle.setText(logs.何事)
         when (logs.判断) {
             resources.getString(R.string.logs_true) -> {
                 binding.logsDetailRbTrue.isChecked = true

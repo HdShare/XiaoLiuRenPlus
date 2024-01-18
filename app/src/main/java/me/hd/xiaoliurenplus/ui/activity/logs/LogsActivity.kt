@@ -21,6 +21,10 @@ class LogsActivity : AppCompatActivity() {
         setContentView(binding.root)
         initView()
         initListener()
+    }
+
+    override fun onResume() {
+        super.onResume()
         initData()
     }
 
