@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <com.google.android.material.appbar.MaterialToolbar
@@ -25,97 +25,109 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="15dp"
-            android:orientation="vertical">
-
-            <include
-                android:id="@+id/includedLayoutDate"
-                layout="@layout/included_layout_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="visible" />
-
-            <include
-                android:id="@+id/includedLayoutNum"
-                layout="@layout/included_layout_num"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
-
-            <include
-                android:id="@+id/includedLayoutTime"
-                layout="@layout/included_layout_time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="15dp"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-                <me.hd.xiaoliurenplus.ui.view.DiscView
-                    android:id="@+id/discView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="15dp"
+                    android:orientation="vertical">
 
-                <me.hd.xiaoliurenplus.ui.view.DiscView
-                    android:id="@+id/discView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
+                    <include
+                        android:id="@+id/includedLayoutDate"
+                        layout="@layout/included_layout_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible" />
 
-                <me.hd.xiaoliurenplus.ui.view.DiscView
-                    android:id="@+id/discView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
+                    <include
+                        android:id="@+id/includedLayoutNum"
+                        layout="@layout/included_layout_num"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone" />
 
-                </me.hd.xiaoliurenplus.ui.view.DiscView>
+                    <include
+                        android:id="@+id/includedLayoutTime"
+                        layout="@layout/included_layout_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="15dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <me.hd.xiaoliurenplus.ui.view.DiscView
+                            android:id="@+id/discView1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1" />
+
+                        <me.hd.xiaoliurenplus.ui.view.DiscView
+                            android:id="@+id/discView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1" />
+
+                        <me.hd.xiaoliurenplus.ui.view.DiscView
+                            android:id="@+id/discView3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                        </me.hd.xiaoliurenplus.ui.view.DiscView>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <me.hd.xiaoliurenplus.ui.view.DiscView
+                            android:id="@+id/discView0"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1" />
+
+                        <me.hd.xiaoliurenplus.ui.view.DiscView
+                            android:id="@+id/discView5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1" />
+
+                        <me.hd.xiaoliurenplus.ui.view.DiscView
+                            android:id="@+id/discView4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                        </me.hd.xiaoliurenplus.ui.view.DiscView>
+                    </LinearLayout>
+
+                </LinearLayout>
+
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <me.hd.xiaoliurenplus.ui.view.DiscView
-                    android:id="@+id/discView0"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-
-                <me.hd.xiaoliurenplus.ui.view.DiscView
-                    android:id="@+id/discView5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-
-                <me.hd.xiaoliurenplus.ui.view.DiscView
-                    android:id="@+id/discView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-
-                </me.hd.xiaoliurenplus.ui.view.DiscView>
-            </LinearLayout>
-
-        </LinearLayout>
+        </ScrollView>
 
     </LinearLayout>
 
