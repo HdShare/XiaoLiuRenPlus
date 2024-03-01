@@ -128,6 +128,7 @@ class LogsDetailActivity : AppCompatActivity() {
         val message = 排盘.toString() +
                 "\n\n" + "宫位: \n${六宫Desc.信息[排盘.宫位]}" +
                 "\n\n" + "地支: \n${地支Desc.信息[排盘.地支]}" +
+                "\n\n" + "相合: \n${相合Desc.信息[排盘.地支]}" +
                 "\n\n" + "五行: \n${五行Desc.信息[排盘.五行]}" +
                 "\n\n" + "六亲: \n${六亲Desc.信息[排盘.六亲]}" +
                 "\n\n" + "六神: \n${六神Desc.信息[排盘.六神]}" +
