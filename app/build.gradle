@@ -11,8 +11,8 @@ android {
         applicationId "me.hd.xiaoliurenplus"
         minSdk 24
         targetSdk 33
-        versionCode 20240301
-        versionName "1.3.2"
+        versionCode 20240304
+        versionName "1.3.3"
 
         buildConfigField("String", "Developer", "\"HdShare\"")
 

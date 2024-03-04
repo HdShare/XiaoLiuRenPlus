@@ -12,7 +12,7 @@ class LogsDaoImpl : LogsDao {
 
     @SuppressLint("Range")
     override fun queryAll(): MutableList<Logs> {
-        val cursor = database.query("logs", null, null, null, null, null, null)
+        val cursor = database.query("logs", null, null, null, null, null, "何时 desc")
         val logsList = mutableListOf<Logs>()
         while (cursor.moveToNext()) {
             val id = cursor.getInt(cursor.getColumnIndex("id"))
